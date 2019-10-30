@@ -49,6 +49,10 @@ void testMChatString()
     MCharString charstring4(7, string1);
     //std::cout << "success create 4" << std::endl;
 
+    //测试构造函数5
+    MCharString charstring9("abcdefg");
+    //charstring9.print();
+
     //测试size()
     assert(charstring1.size() == 8);
     //std::cout << "success test size 1" << std::endl;
@@ -123,10 +127,14 @@ void testMChatString()
 
 void testMCharStringLink()
 {
-    MCharString charstring1("abcdefg");
-    MCharString charstring2("hijklmn");
-    MCharString charstring3("opqrst");
-    MCharString charstring4("uvwxyz");
+    std::string string1 = "abcdefg";
+    std::string string2 = "hijklmn";
+    std::string string3 = "opqrst";
+    std::string string4 = "uvwxyz";
+    MCharString charstring1(string1);
+    MCharString charstring2(string2);
+    MCharString charstring3(string3);
+    MCharString charstring4(string4);
 
     //测试MCharStringNode构造函数1
     MCharStringNode node1;
@@ -153,4 +161,14 @@ void testMCharStringLink()
 
     //test print()
     //link.print();
+}
+
+void testParser()
+{
+    //测试构造函数
+    std::string filepath = "./input/19.html";
+    Parser parser(filepath);
+
+    //测试getTitle()
+    assert(parser.getTitle());
 }

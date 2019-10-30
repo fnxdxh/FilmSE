@@ -15,6 +15,7 @@ public:
     MCharString();
     MCharString(std::string cstring);
     MCharString(char* string);
+    MCharString(const char* string);
     MCharString(int length, char* string);
     ~MCharString();
 

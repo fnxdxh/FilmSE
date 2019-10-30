@@ -20,6 +20,15 @@ MCharString::MCharString(char *string)
     m_string = string;
 }
 
+MCharString::MCharString(const char *string)
+{
+    m_length = static_cast<int>(strlen(string));
+    m_string = new char[m_length];
+    for (int i = 0; i < m_length; i++) {
+        m_string[i] = string[i];
+    }
+}
+
 MCharString::MCharString(int length, char *string)
 {
     m_length = length;
