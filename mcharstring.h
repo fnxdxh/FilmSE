@@ -25,13 +25,20 @@ public:
     int indexof(MCharString substring); //查找子串位置，查找失败返回-1
     MCharString substring(int head, int tail);    //根据头尾位置生成子串
     void concat(MCharString charstring);    //连接字符串
+    void append(MCharString charstring);    //同上
+    void push_back(char c);     //在末尾增加一个字符
+    void pop_back();    //在末尾删去一个字符
+    void pop_back_to_fit();     //在末尾删去一个字符并释放空间
     char at(int index);    //与[]用法相同
     void assign(MCharString charstring);    //与重载=运算符不同，assign重新申请一块空间
+    void clear();
     void print();   //打印
 
     //重载运算符
     void operator=(const MCharString& charstring);  //赋值运算符并不重新申请空间
     bool operator==(const MCharString& charstring);
+    bool operator==(const char* string);
+    bool operator==(const std::string cstring);
     bool operator!=(const MCharString& charstring);
     bool operator<(const MCharString& charstring);
     bool operator>(const MCharString& charstring);

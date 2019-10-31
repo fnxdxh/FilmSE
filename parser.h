@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <assert.h>
+#include <ctype.h>
 #include "mstack.h"
 #include "mcharstring.h"
 #include "mcharstringlink.h"
@@ -13,12 +14,19 @@ class Parser
 {
 private:
     MCharString m_buffer;
-    std::string m_result;
+    MCharString m_title;
+    MCharString m_info;
+    MCharString m_summary;
 
 public:
     Parser(std::string filepath);
     bool getTitle();
+    bool getInfo();
+    bool getSummary();
     void printbuffer();
+    void printtitle();
+    void printinfo();
+    void printsummary();
 };
 
 #endif // PARSER_H

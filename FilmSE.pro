@@ -4,6 +4,7 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        dic.cpp \
         main.cpp \
         mcharstring.cpp \
         mcharstringlink.cpp \
@@ -11,6 +12,7 @@ SOURCES += \
         test.cpp
 
 HEADERS += \
+    dic.h \
     mcharstring.h \
     mcharstringlink.h \
     mstack.h \

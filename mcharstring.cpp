@@ -17,7 +17,10 @@ MCharString::MCharString(std::string cstring)
 MCharString::MCharString(char *string)
 {
     m_length = static_cast<int>(strlen(string));
-    m_string = string;
+    m_string = new char[m_length];
+    for (int i = 0; i < m_length; i++) {
+        m_string[i] = string[i];
+    }
 }
 
 MCharString::MCharString(const char *string)
@@ -32,7 +35,10 @@ MCharString::MCharString(const char *string)
 MCharString::MCharString(int length, char *string)
 {
     m_length = length;
-    m_string = string;
+    m_string = new char[m_length];
+    for (int i = 0; i < m_length; i++) {
+        m_string[i] = string[i];
+    }
 }
 
 MCharString::~MCharString()
@@ -100,17 +106,90 @@ MCharString MCharString::substring(int head, int tail)
 
 void MCharString::concat(MCharString charstring)
 {
-    char* temp = m_string;
-    int newlength = m_length + charstring.size();
-    m_string = new char[newlength];
-    for (int i = 0; i < m_length; i++) {
-        m_string[i] = temp[i];
+    if (m_length == 0) {
+        m_length = charstring.length();
+        m_string = new char[m_length];
+        for (int i = 0; i < m_length; i++) {
+            m_string[i] = charstring[i];
+        }
     }
-    for (int i = m_length; i < newlength; i++) {
-        m_string[i] = charstring[i - m_length];
+    else {
+        char* temp = m_string;
+        int newlength = m_length + charstring.size();
+        m_string = new char[newlength];
+        for (int i = 0; i < m_length; i++) {
+            m_string[i] = temp[i];
+        }
+        for (int i = m_length; i < newlength; i++) {
+            m_string[i] = charstring[i - m_length];
+        }
+        m_length = newlength;
+        delete[] temp;
     }
-    m_length = newlength;
-    delete[] temp;
+}
+
+void MCharString::append(MCharString charstring)
+{
+    if (m_length == 0) {
+        m_length = charstring.length();
+        m_string = new char[m_length];
+        for (int i = 0; i < m_length; i++) {
+            m_string[i] = charstring[i];
+        }
+    }
+    else {
+        char* temp = m_string;
+        int newlength = m_length + charstring.size();
+        m_string = new char[newlength];
+        for (int i = 0; i < m_length; i++) {
+            m_string[i] = temp[i];
+        }
+        for (int i = m_length; i < newlength; i++) {
+            m_string[i] = charstring[i - m_length];
+        }
+        m_length = newlength;
+        delete[] temp;
+    }
+}
+
+void MCharString::push_back(char c)
+{
+    if (m_length == 0) {
+        m_length = 1;
+        m_string = new char[1];
+        m_string[0] = c;
+    }
+    else {
+        char* temp = m_string;
+        int newlength = m_length + 1;
+        m_string = new char[newlength];
+        for (int i = 0; i < m_length; i++) {
+            m_string[i] = temp[i];
+        }
+        m_string[m_length] = c;
+        m_length = newlength;
+        delete[] temp;
+    }
+}
+
+void MCharString::pop_back()
+{
+    if (m_length != 0) {
+        m_length--;
+    }
+}
+
+void MCharString::pop_back_to_fit()
+{
+    if (m_length != 0) {
+        m_length--;
+        char* tmp = m_string;
+        m_string = new char[m_length];
+        for (int i = 0; i < m_length; i++) {
+            m_string[i] = tmp[i];
+        }
+        delete [] tmp;
+    }
 }
 
 char MCharString::at(int index)
@@ -130,6 +209,14 @@ void MCharString::assign(MCharString charstring)
     m_string = new char[m_length];
     for (int i = 0; i < m_length; i++) {
         m_string[i] = charstring.m_string[i];
+    }
+}
+
+void MCharString::clear()
+{
+    if (m_length != 0) {
+        m_length = 0;
+        delete[] m_string;
     }
 }
 
@@ -155,6 +242,32 @@ bool MCharString::operator==(const MCharString &charstring)
     if (m_length == charstring.m_length) {
         for (int i = 0; i < m_length; i++) {
             if (m_string[i] != charstring.m_string[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+bool MCharString::operator==(const char *string)
+{
+    if (m_length == static_cast<int>(strlen(string))) {
+        for (int i = 0; i < m_length; i++) {
+            if (m_string[i] != string[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+
+bool MCharString::operator==(const std::string cstring)
+{
+    if (m_length == static_cast<int>(cstring.size())) {
+        for (int i = 0; i < m_length; i++) {
+            if (m_string[i] != cstring[static_cast<size_t>(i)]) {
                 return false;
             }
         }

@@ -14,7 +14,7 @@ int main()
     wcscpy(info.FaceName, L"Consolas");
     SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
 
-    testParser();
+    //testParser();
     cout << "OK!" << endl;
     return 0;
 }

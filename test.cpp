@@ -114,6 +114,14 @@ void testMChatString()
     charstring2.concat(charstring3);
     assert(charstring2 == charstring7);
 
+    //测试append()
+    charstring1.append(charstring3);
+    assert(charstring1 == charstring2);
+
+    //测试push_back()
+    charstring2.push_back('2');
+    assert(charstring2.size() == 16);
+
     //测试at()
     for (int i = 0; i < charstring1.size(); i++) {
         assert(charstring1[i] == charstring1.at(i));
@@ -171,4 +179,10 @@ void testParser()
 
     //测试getTitle()
     assert(parser.getTitle());
+    assert(parser.getInfo());
+    assert(parser.getSummary());
+    parser.printtitle();
+    parser.printinfo();
+    std::cout << "剧情简介:" << std::endl;
+    parser.printsummary();
 }
