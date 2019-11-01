@@ -10,6 +10,7 @@ class Files
 {
 private:
     std::vector<std::string> m_files;
+    std::vector<std::string> m_filenames;
 
 public:
     Files(std::string path);

@@ -12,6 +12,13 @@ Files::Files(std::string path)
         while (_findnext(hFile, &fileinfo)  == 0);
         _findclose(hFile);
     }
+    for (int i = 0; i < static_cast<int>(m_files.size()); i++) {
+        std::string filename;
+        for (int j = 0; j < m_files[i].size() - 5; j++) {
+            filename.push_back(m_files[i][j]);
+        }
+        m_filenames.push_back(filename);
+    }
 }
 
 void Files::print()
@@ -19,5 +26,8 @@ void Files::print()
     std::cout << m_files.size() << std::endl;
     for (int i = 0; i < static_cast<int>(m_files.size()); i++) {
         std::cout << m_files[static_cast<size_t>(i)] << std::endl;
+    }
+    for (int i = 0; i < m_filenames.size(); i++) {
+        std::cout << m_filenames[i] << std::endl;
     }
 }

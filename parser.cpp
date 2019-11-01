@@ -143,6 +143,26 @@ bool Parser::getSummary()
     return false;
 }
 
+void Parser::wordSegmentation(Dic &dic)
+{
+    int summarylength = m_summary.length();
+    int i = 0;
+    while (i < summarylength) {
+        for (int j = WORD_MAX_LENGTH; j > 0; j--) {
+            MCharString word = m_summary.substringBylength(i, j);
+            if (dic.find(word.toSTLstring())) {
+                m_wordlist.push_back(word);
+                i += j;
+                break;
+            }
+            else if (j == 1) {
+                i++;
+                break;
+            }
+        }
+    }
+}
+
 bool Parser::outputFilmInfo(std::string filepath)
 {
     std::ofstream fout;
@@ -170,6 +190,21 @@ bool Parser::outputFilmInfo(std::string filepath)
 
 bool Parser::outputWordSeg(std::string filepath)
 {
+    std::ofstream fout;
+    fout.open(filepath);
+    if (fout.is_open()) {
+        int vectorlength = m_wordlist.size();
+        if (vectorlength == 0) {
+            return false;
+        }
+        for (int i = 0; i < vectorlength; i++) {
+            for (int j = 0; j < m_wordlist[i].size(); j++) {
+                fout << m_wordlist[i][j];
+            }
+            fout << std::endl;
+        }
+        return true;
+    }
     return false;
 }
 

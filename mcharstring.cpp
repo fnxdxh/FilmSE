@@ -92,12 +92,31 @@ int MCharString::indexof(MCharString substring)
     return -1;
 }
 
-MCharString MCharString::substring(int head, int tail)
+MCharString MCharString::substringBypos(int head, int tail)
 {
     if (head >= 0 && head <= tail && tail < m_length) {
         std::string cstring;
         for (int i = head; i <= tail; i++) {
             cstring.push_back(m_string[i]);
+        }
+        return MCharString(cstring);
+    }
+    return MCharString();
+}
+
+MCharString MCharString::substringBylength(int head, int length)
+{
+    if (head >= 0 && head <= m_length) {
+        std::string cstring;
+        if (head + length < m_length) {
+            for (int i = head; i < head + length; i++) {
+                cstring.push_back(m_string[i]);
+            }
+        }
+        else {
+            for (int i = head; i < m_length; i++) {
+                cstring.push_back(m_string[i]);
+            }
         }
         return MCharString(cstring);
     }

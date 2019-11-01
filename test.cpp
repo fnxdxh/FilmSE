@@ -87,7 +87,7 @@ void testMChatString()
     assert(charstring1.indexof(charstring3) == 1);
 
     //测试substring()
-    MCharString charstring5 = charstring1.substring(1, 7);
+    MCharString charstring5 = charstring1.substringBypos(1, 7);
     assert(charstring5[0] == 's');
     assert(charstring5[6] == '1');
     assert(charstring5.length() == 7);
@@ -182,6 +182,9 @@ void testParser()
     assert(parser.getInfo());
     assert(parser.getSummary());
     assert(parser.outputFilmInfo("./output/19.info"));
+    Dic dic("./dic/dic");
+    parser.wordSegmentation(dic);
+    assert(parser.outputWordSeg("./output/19.txt"));
 }
 
 void testDic()
@@ -193,5 +196,6 @@ void testDic()
 void testFiles()
 {
     Files files("./input/");
-    files.print();
+    //files.print();
+
 }
