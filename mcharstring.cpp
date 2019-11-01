@@ -220,6 +220,15 @@ void MCharString::clear()
     }
 }
 
+std::string MCharString::toSTLstring()
+{
+    std::string cstring;
+    for (int i = 0; i < m_length; i++) {
+        cstring.push_back(m_string[i]);
+    }
+    return cstring;
+}
+
 void MCharString::print()
 {
     for (int i = 0; i < m_length; i++) {

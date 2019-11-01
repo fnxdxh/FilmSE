@@ -186,3 +186,10 @@ void testParser()
     std::cout << "剧情简介:" << std::endl;
     parser.printsummary();
 }
+
+void testDic()
+{
+    Dic dic("./dic/dic");
+    assert(dic.size() == 275909);
+    assert(dic.find("龟年鹤寿"));
+}

@@ -32,6 +32,7 @@ public:
     char at(int index);    //与[]用法相同
     void assign(MCharString charstring);    //与重载=运算符不同，assign重新申请一块空间
     void clear();
+    std::string toSTLstring();
     void print();   //打印
 
     //重载运算符
