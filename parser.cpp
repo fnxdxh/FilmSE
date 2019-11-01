@@ -143,6 +143,36 @@ bool Parser::getSummary()
     return false;
 }
 
+bool Parser::outputFilmInfo(std::string filepath)
+{
+    std::ofstream fout;
+    fout.open(filepath);
+    if (fout.is_open()) {
+        int titlelength = m_title.length();
+        int infolength = m_info.length();
+        int summarylength = m_summary.length();
+        for (int i = 0; i < titlelength; i++) {
+            fout << m_title[i];
+        }
+        fout << std::endl;
+        for (int i = 0; i < infolength; i++) {
+            fout << m_info[i];
+        }
+        fout << std::endl;
+        fout << "剧情简介:" << std::endl;
+        for (int i = 0; i < summarylength; i++) {
+            fout << m_summary[i];
+        }
+        return true;
+    }
+    return false;
+}
+
+bool Parser::outputWordSeg(std::string filepath)
+{
+    return false;
+}
+
 void Parser::printbuffer()
 {
     m_buffer.print();

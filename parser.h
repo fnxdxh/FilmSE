@@ -23,6 +23,9 @@ public:
     bool getTitle();
     bool getInfo();
     bool getSummary();
+    bool outputFilmInfo(std::string filepath);
+    bool outputWordSeg(std::string filepath);
+
     void printbuffer();
     void printtitle();
     void printinfo();

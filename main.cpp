@@ -1,5 +1,11 @@
 #include <iostream>
 #include <windows.h>
+#include "mcharstring.h"
+#include "mcharstringlink.h"
+#include "mstack.h"
+#include "parser.h"
+#include "dic.h"
+#include "files.h"
 #include "test.h"
 
 using namespace std;
@@ -14,7 +20,6 @@ int main()
     wcscpy(info.FaceName, L"Consolas");
     SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), NULL, &info);
 
-    testDic();
-    cout << "OK!" << endl;
+    testFiles();
     return 0;
 }

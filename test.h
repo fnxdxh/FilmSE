@@ -9,6 +9,7 @@
 #include "mcharstringlink.h"
 #include "parser.h"
 #include "dic.h"
+#include "files.h"
 
 void test();
 
@@ -21,5 +22,7 @@ void testMCharStringLink();
 void testParser();
 
 void testDic();
+
+void testFiles();
 
 #endif // TEST_H

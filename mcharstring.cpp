@@ -354,3 +354,4 @@ MCharString MCharString::operator+(const MCharString &charstring)
     }
     return MCharString(length, String);
 }
+

@@ -5,6 +5,7 @@ CONFIG -= qt
 
 SOURCES += \
         dic.cpp \
+        files.cpp \
         main.cpp \
         mcharstring.cpp \
         mcharstringlink.cpp \
@@ -13,6 +14,7 @@ SOURCES += \
 
 HEADERS += \
     dic.h \
+    files.h \
     mcharstring.h \
     mcharstringlink.h \
     mstack.h \

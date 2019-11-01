@@ -181,10 +181,7 @@ void testParser()
     assert(parser.getTitle());
     assert(parser.getInfo());
     assert(parser.getSummary());
-    parser.printtitle();
-    parser.printinfo();
-    std::cout << "剧情简介:" << std::endl;
-    parser.printsummary();
+    assert(parser.outputFilmInfo("./output/19.info"));
 }
 
 void testDic()
@@ -192,4 +189,9 @@ void testDic()
     Dic dic("./dic/dic");
     assert(dic.size() == 275909);
     assert(dic.find("龟年鹤寿"));
+}
+void testFiles()
+{
+    Files files("./input/");
+    files.print();
 }
