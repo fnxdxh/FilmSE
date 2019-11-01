@@ -13,7 +13,7 @@ Parser::Parser(std::string filepath)
 
 bool Parser::getTitle()
 {
-    MCharString target("<span property=\"v:itemreviewed\">");
+    MCharString target("<title>");
     int index = m_buffer.indexof(target);
     MCharString tmp;
     char c;
@@ -31,7 +31,7 @@ bool Parser::getTitle()
                 tmp.push_back(c);
             }
             else if (c == '>') {
-                if (tmp == "</span") {
+                if (tmp == "</title") {
                     break;
                 }
                 if (tmp == "<br" || tmp == "<br/" || tmp == "<br /") {
@@ -47,6 +47,14 @@ bool Parser::getTitle()
             }
             i++;
         }
+        m_title.pop_back();
+        m_title.pop_back();
+        m_title.pop_back();
+        m_title.pop_back();
+        m_title.pop_back();
+        m_title.pop_back();
+        m_title.pop_back();
+        m_title.pop_back();
         return true;
     }
     return false;
@@ -99,32 +107,34 @@ bool Parser::getInfo()
 
 bool Parser::getSummary()
 {
-    MCharString target("<span property=\"v:summary\" class=\"\">");
-    int index = m_buffer.indexof(target);
-    MCharString tmp;
+    MCharString target1("<span class=\"all hidden\">");
+    MCharString target2("<span property=\"v:summary\"");
+    int index1 = m_buffer.indexof(target1);
+    int index2 = m_buffer.indexof(target2);
     char c;
-    int i = index;
-    int status = 1; //0表示在标签内，1表示不在标签内
-    if (index != -1) {
+    if (index1 != -1) {
+        MCharString tmp1;
+        int i = index1;
+        int status = 1; //0表示在标签内，1表示不在标签内
         while (1) {
             c = m_buffer[i];
             if (c == '<') {
-                if (tmp.size() && status == 1) {
-                    m_summary.append(tmp);
+                if (tmp1.size() && status == 1) {
+                    m_summary.append(tmp1);
                 }
                 status = 0;
-                tmp.clear();
-                tmp.push_back(c);
+                tmp1.clear();
+                tmp1.push_back(c);
             }
             else if (c == '>') {
-                if (tmp == "</span") {
+                if (tmp1 == "</span") {
                     break;
                 }
-                if (tmp == "<br" || tmp == "<br/" || tmp == "<br /") {
+                if (tmp1 == "<br" || tmp1 == "<br/" || tmp1 == "<br /") {
                     m_summary.push_back('\n');
                 }
                 status = 1;
-                tmp.clear();
+                tmp1.clear();
             }
             else {
                 //处理全角字符
@@ -133,7 +143,45 @@ bool Parser::getSummary()
                     i += 2;
                 }
                 else if (!isspace(c)) {
-                    tmp.push_back(c);
+                    tmp1.push_back(c);
+                }
+            }
+            i++;
+        }
+        return true;
+    }
+    else if (index2 != -1) {
+        MCharString tmp2;
+        int i = index2;
+        int status = 1; //0表示在标签内，1表示不在标签内
+        while (1) {
+            c = m_buffer[i];
+            if (c == '<') {
+                if (tmp2.size() && status == 1) {
+                    m_summary.append(tmp2);
+                }
+                status = 0;
+                tmp2.clear();
+                tmp2.push_back(c);
+            }
+            else if (c == '>') {
+                if (tmp2 == "</span") {
+                    break;
+                }
+                if (tmp2 == "<br" || tmp2 == "<br/" || tmp2 == "<br /") {
+                    m_summary.push_back('\n');
+                }
+                status = 1;
+                tmp2.clear();
+            }
+            else {
+                //处理全角字符
+                //全角空格编码为-29,-128,-128
+                if (c == -29 && m_buffer[i+1] == -128 && m_buffer[i+2] == -128) {
+                    i += 2;
+                }
+                else if (!isspace(c)) {
+                    tmp2.push_back(c);
                 }
             }
             i++;
@@ -141,6 +189,13 @@ bool Parser::getSummary()
         return true;
     }
     return false;
+}
+
+void Parser::start()
+{
+    getTitle();
+    getInfo();
+    getSummary();
 }
 
 void Parser::wordSegmentation(Dic &dic)

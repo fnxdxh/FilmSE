@@ -19,6 +19,23 @@ Files::Files(std::string path)
         }
         m_filenames.push_back(filename);
     }
+    m_length = m_files.size();
+}
+
+int Files::length()
+{
+    return m_length;
+}
+
+int Files::size()
+{
+    return m_length;
+}
+
+std::string Files::at(int index)
+{
+    assert(index >= 0 && index < m_length);
+    return m_filenames[index];
 }
 
 void Files::print()

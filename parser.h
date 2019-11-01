@@ -29,6 +29,8 @@ public:
     bool getInfo();
     bool getSummary();
 
+    void start();
+
     void wordSegmentation(Dic& dic);
 
     bool outputFilmInfo(std::string filepath);
